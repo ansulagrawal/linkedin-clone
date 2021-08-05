@@ -1,7 +1,7 @@
  import styled from "styled-components";
-// import Leftside from "./Leftside";
-// import Main from "./Main";
-// import Rightside from "./Rightside";
+import Leftside from "./Leftside";
+import Main from "./Main";
+import Rightside from "./Rightside";
 
 const Home = (props) => {
   return (
@@ -15,11 +15,11 @@ const Home = (props) => {
           moving.
         </p>
       </Section>
-      {/* <Layout>
+      <Layout>
         <Leftside />
         <Main />
         <Rightside />
-      </Layout> */}
+      </Layout>
     </Container>
   );
 };
