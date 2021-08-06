@@ -242,13 +242,13 @@ const SharedActor = styled.div`
       span {
         text-align: left;
 
-        &::first-child {
+        &:first-child {
           font-size: 14px;
           font-weight: 700;
           color: rgba(0, 0, 0, 1);
         }
 
-        &::nth-child(n + 1) {
+        &:nth-child(n + 1) {
           font-size: 12px;
           color: rgba(0, 0, 0, 0.6);
         }

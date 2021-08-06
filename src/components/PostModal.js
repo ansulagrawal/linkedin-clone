@@ -28,24 +28,26 @@ const PostModal = (props) => {
     setAssetArea(area);
   };
 
-const postArticle = (e) => {
-  e.preventDefault();
-  
-  if(e.target !== e.currentTarget) {
-    return;
-  }
+  const postArticle = (e) => {
+    // console.log('post malone : rck');
+    e.preventDefault();
 
-  const payload ={
-    image: shareImage,
-    video: videoLink,
-    user: props.user,
-    description: editorText,
-    timestamp: firebase.firestore.Timestamp.now(),
+    if (e.target !== e.currentTarget) {
+      // console.log()
+      return;
+    }
+
+    const payload = {
+      image: shareImage,
+      video: videoLink,
+      user: props.user,
+      description: editorText,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+
+    props.postArticle(payload);
+    reset(e);
   };
-
-  props.postArticle(payload);
-  reset(e);
-}
 
   const reset = (e) => {
     setEditorText("");
@@ -133,7 +135,10 @@ const postArticle = (e) => {
                 </AssetButton>
               </ShareComment>
 
-              <PostButton disabled={!editorText ? true : false}>
+              <PostButton
+                disabled={!editorText ? true : false}
+                onClick={(event) => postArticle(event)}
+              >
                 Post
               </PostButton>
             </ShareCreation>
@@ -312,7 +317,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  postArticle: (payload) => dispatch(postArticleAPI(payload)),
+});
 
 // export default PostModal;
 
