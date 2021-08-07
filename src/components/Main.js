@@ -30,22 +30,11 @@ const Main = (props) => {
   return (
     <Container>
       <ShareBox>
-        {/* <div>
-                        { props.user && props.user.photoURL ?
-                            (<img src={ props.user.photoURL} />)
-                            :
-                            (<img src="/images/user.svg" alt="" />)                          
-                        }
-                        <button 
-                            onClick = {handleClick}
-                            disabled = { props.loading ? true : false }
-                            className="post-space">
-                            Start a Post    
-                        </button> 
-                    </div> */}
         <div>
           <img src="/images/user.svg" className="post-icon" alt="" />
-          <button onClick={handleClick}>Start a post</button>
+          <button class="post_text" onClick={handleClick}>
+            Start a post
+          </button>
         </div>
         <div>
           <button>
@@ -205,6 +194,10 @@ const ShareBox = styled(CommonCard)`
       }
     }
   }
+
+  .post_text {
+    padding-left: 30px;
+  }
 `;
 
 const Article = styled(CommonCard)`
@@ -243,13 +236,13 @@ const SharedActor = styled.div`
       span {
         text-align: left;
 
-        &::first-child {
+        &:first-child {
           font-size: 14px;
           font-weight: 700;
           color: rgba(0, 0, 0, 1);
         }
 
-        &::nth-child(n + 1) {
+        &:nth-child(n + 1) {
           font-size: 12px;
           color: rgba(0, 0, 0, 0.6);
         }
