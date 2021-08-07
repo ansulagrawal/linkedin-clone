@@ -61,7 +61,7 @@ const PostModal = (props) => {
     <>
       {props.showModal == "open" && (
         <Container>
-          <Content>
+          <Content className="content">
             <Header>
               <h2>Create a post</h2>
               <button onClick={(event) => reset(event)}>
