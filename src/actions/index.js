@@ -1,6 +1,6 @@
 import { auth, provider, storage } from "../firebase";
-import db from "../firebase";
 import { SET_USER, SET_LOADING_STATUS, GET_ARTICLES } from "./actionType";
+import db from "../firebase";
 
 export const setUser = (payload) => ({
   type: SET_USER,
@@ -22,7 +22,7 @@ export function SignInAPI() {
     auth
       .signInWithPopup(provider)
       .then((payload) => {
-        // console.log(payload);
+        //  console.log(payload);
         dispatch(setUser(payload.user));
       })
       .catch((error) => alert(error.message));
@@ -46,9 +46,7 @@ export function signOutAPI() {
       .then(() => {
         dispatch(setUser(null));
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => alert(error.message));
   };
 }
 
@@ -57,14 +55,13 @@ export function postArticleAPI(payload) {
     dispatch(setLoading(true));
     if (payload.image != "") {
       const upload = storage
-        .ref(`images/${payload.image.name}`)
+        .ref("images/${payload.image.name}")
         .put(payload.image);
       upload.on(
-        "state_changed",
+        'state_Changed',
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
           console.log(`Progress: ${progress}%`);
 
           if (snapshot.state === "RUNNING") {
@@ -74,7 +71,7 @@ export function postArticleAPI(payload) {
         (error) => console.log(error.code),
         async () => {
           const downloadURL = await upload.snapshot.ref.getDownloadURL();
-          db.collection("article").add({
+          db.collection("articles").add({
             actor: {
               description: payload.user.email,
               title: payload.user.displayName,
@@ -90,7 +87,7 @@ export function postArticleAPI(payload) {
         }
       );
     } else if (payload.video) {
-      db.collection("article").add({
+      db.collection("articles").add({
         actor: {
           description: payload.user.email,
           title: payload.user.displayName,
