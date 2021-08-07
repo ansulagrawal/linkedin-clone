@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { connect } from "react-redux";
+import firebase from "firebase";
 
 const PostModal = (props) => {
   const [editorText, setEditorText] = useState("");
@@ -46,8 +48,12 @@ const PostModal = (props) => {
             </Header>
             <SharedContent>
               <UserInfo>
-                <img src="/images/user.svg" alt="" />
-                <span>Name</span>
+              {props.user.photoURL ? (
+                  <img src={props.user.photoURL} />
+                ) : (
+                  <img src="/images/user.svg" alt="" />
+                )}
+                <span>{props.user.displayName}</span>
               </UserInfo>
               <Editor>
                 <textarea
@@ -92,10 +98,10 @@ const PostModal = (props) => {
             </SharedContent>
             <ShareCreation>
               <AttachAssets>
-                <AssetButton  onClick={() => switchAssetArea("image")}>
+                <AssetButton onClick={() => switchAssetArea("image")}>
                   <img src="/images/share-image.svg" alt="" />
                 </AssetButton>
-                <AssetButton  onClick={() => switchAssetArea("media")}>
+                <AssetButton onClick={() => switchAssetArea("media")}>
                   <img src="/images/share-video.svg" alt="" />
                 </AssetButton>
               </AttachAssets>
@@ -285,4 +291,13 @@ const UploadImage = styled.div`
     width: 100%;
   }
 `;
-export default PostModal;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostModal);
