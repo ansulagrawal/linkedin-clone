@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import PostModal from './PostModal';
+import PostModal from "./PostModal";
+import { getArticlesAPI } from "../actions";
+
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
+
+  useEffect(() => {
+    props.getArticles();
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    if(e.target != e.currentTarget) {
+    if (e.target != e.currentTarget) {
       return;
     }
 
-    switch (showModal)  {
+    switch (showModal) {
       case "open":
         setShowModal("close");
         break;
-      
+
       case "close":
         setShowModal("open");
         break;
-    
+
       default:
         setShowModal("close");
         break;
@@ -42,10 +49,19 @@ const Main = (props) => {
                             Start a Post    
                         </button> 
                     </div> */}
+
         <div>
-          <img src="/images/user.svg" className="post-icon" alt="" />
-          <button onClick={handleClick}>Start a post</button>
+          {props.user && props.user.photoURL ? (
+            <img src={props.user.photoURL} />
+          ) : (
+            <img src="/images/user.svg" alt="" />
+          )}
+          {/* <img src="/images/user.svg" className="post-icon" alt="" /> */}
+          <button onClick={handleClick} disabled={props.loading ? true : false}>
+            Start a post
+          </button>
         </div>
+
         <div>
           <button>
             <img src="/images/photo-icon.svg" className="post-icon" alt="" />
@@ -68,7 +84,10 @@ const Main = (props) => {
           </button>
         </div>
       </ShareBox>
-      <div>
+      <Content>
+        {props.loading && <img src="./images/spin-loader.svg" />}
+
+        {/* <div> */}
         <Article>
           <SharedActor>
             <a>
@@ -120,8 +139,9 @@ const Main = (props) => {
             </button>
           </SocialActions>
         </Article>
-      </div>
-      <PostModal  showModal={showModal} handleClick={handleClick} />
+      </Content>
+      {/* </div> */}
+      <PostModal showModal={showModal} handleClick={handleClick} />
     </Container>
   );
 };
@@ -316,18 +336,39 @@ const SocialActions = styled.div`
   min-height: 40px;
   padding: 4px 8px;
 
-  button{
+  button {
     display: flex;
     align-items: center;
     padding: 8px;
     color: #0a66c2;
 
-    @media (min-width:768px){
-      span{
+    @media (min-width: 768px) {
+      span {
         margin-left: 8px;
       }
     }
   }
 `;
 
-export default Main;
+const Content = styled.div`
+  text-align: center;
+  & > img {
+    width: 30px;
+  }
+`;
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.articleState.loading,
+    user: state.userState.user,
+    articles: state.articleState.articles,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getArticles: () => dispatch(getArticlesAPI()),
+});
+
+// export default Main;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
