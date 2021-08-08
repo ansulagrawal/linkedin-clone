@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import PostModal from "./PostModal";
 import { getArticlesAPI } from "../actions";
+import ReactPlayer from "react-player";
 
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
@@ -32,6 +33,7 @@ const Main = (props) => {
         break;
     }
   };
+
 
   return (
     <>
@@ -94,57 +96,67 @@ const Main = (props) => {
           </ShareBox>
           <Content>
             {props.loading && <img src="./images/spin-loader.svg" />}
-            <Article>
-              <SharedActor>
-                <a>
-                  <img src="/images/user.svg" alt="" />
-                  <div>
-                    <span>Title</span>
-                    <span>Info</span>
-                    <span>Date</span>
-                  </div>
-                </a>
-                <button>
-                  <img src="/images/ellipsis.svg" alt="" />
-                </button>
-              </SharedActor>
-              <Description>Description</Description>
-              <SharedImg>
-                <a>
-                  <img src="/images/shared-img.png" alt="" />
-                </a>
-              </SharedImg>
-              <SocialCounts>
-                <li>
-                  <button>
-                    <img src="/images/liked-icon.svg" alt="" />
-                    <img src="/images/clap-icon.svg" alt="" />
-                    <span>75</span>
-                  </button>
-                </li>
-                <li>
-                  <a>2 comments</a>
-                </li>
-              </SocialCounts>
-              <SocialActions>
-                <button>
-                  <img src="/images/like-icon.svg" alt="" />
-                  <span>Like</span>
-                </button>
-                <button>
-                  <img src="/images/comment-icon.svg" alt="" />
-                  <span>Comments</span>
-                </button>
-                <button>
-                  <img src="/images/shared-comment.svg" alt="" />
-                  <span>Comments</span>
-                </button>
-                <button>
-                  <img src="/images/send-icon.svg" alt="" />
-                  <span>send</span>
-                </button>
-              </SocialActions>
-            </Article>
+            {props.articles.length > 0 &&
+              props.articles.map((article, key) => (
+                <Article key={key}>
+                  <SharedActor>
+                    <a>
+                      <img src={article.actor.image} alt="" />
+                      <div>
+                        <span>{article.actor.title}</span>
+                        <span>{article.actor.description}</span>
+                        <span>
+                          {article.actor.date.toDate().toLocaleDateString()}
+                        </span>
+                      </div>
+                    </a>
+                    <button>
+                      <img src="/images/ellipsis.svg" alt="" />
+                    </button>
+                  </SharedActor>
+                  <Description>{article.description}</Description>
+                  <SharedImg>
+                    <a>
+                      {article.video ? (
+                        <ReactPlayer width={"100%"} url={article.video} />
+                      
+                      ) : (
+                        <img src={article.sharedImg} />
+                      )}
+                    </a>
+                  </SharedImg>
+                  <SocialCounts>
+                    <li>
+                      <button>
+                        <img src="/images/liked-icon.svg" alt="" />
+                        <img src="/images/clap-icon.svg" alt="" />
+                        <span>75</span>
+                      </button>
+                    </li>
+                    <li>
+                      <a>{article.comment} comments</a>
+                    </li>
+                  </SocialCounts>
+                  <SocialActions>
+                    <button>
+                      <img src="/images/like-icon.svg" alt="" />
+                      <span>Like</span>
+                    </button>
+                    <button>
+                      <img src="/images/comment-icon.svg" alt="" />
+                      <span>Comments</span>
+                    </button>
+                    <button>
+                      <img src="/images/shared-comment.svg" alt="" />
+                      <span>Comments</span>
+                    </button>
+                    <button>
+                      <img src="/images/send-icon.svg" alt="" />
+                      <span>send</span>
+                    </button>
+                  </SocialActions>
+                </Article>
+              ))}
           </Content>
           <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
