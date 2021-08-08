@@ -118,7 +118,7 @@ const Main = (props) => {
                   <SharedImg>
                     <a>
                       {article.video ? (
-                        <ReactPlayer width={"100%"} url={article.video} />
+                        <ReactPlayer width={"98%"} url={article.video} class="video"/>
                       
                       ) : (
                         <img src={article.sharedImg} />
@@ -326,27 +326,42 @@ const SharedImg = styled.div`
 
   img {
     object-fit: contain;
-    width: 100%;
+    width: 98%;
     height: 100%;
   }
+  .video{
+    margin: 0 auto;
+  }
+
 `;
 
 const SocialCounts = styled.ul`
   line-height: 1.3;
   display: flex;
-  align-items: flex-start;
   overflow: auto;
   margin: 0 16px;
   padding: 8px 0;
   border-bottom: 1px solid #e9e5df;
   list-style: none;
+  align-items: center;
 
   li {
     margin-right: 5px;
     font-size: 12px;
-
+    align-items: center;
+    
     button {
       display: flex;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+    }
+
+    img,svg{
+      padding-right: 2px;
+    }
+    span{
+      padding-right: 10px;
     }
   }
 `;
@@ -364,6 +379,8 @@ const SocialActions = styled.div`
     align-items: center;
     padding: 8px;
     color: #0a66c2;
+    border: none;
+    background-color: transparent;
 
     @media (min-width: 768px) {
       span {
