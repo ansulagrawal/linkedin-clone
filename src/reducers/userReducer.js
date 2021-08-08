@@ -11,11 +11,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         user: action.user,
       };
+
     default:
       return state;
   }
 };
 
 export default userReducer;
-
-//stateUpdater

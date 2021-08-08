@@ -22,7 +22,6 @@ export function SignInAPI() {
     auth
       .signInWithPopup(provider)
       .then((payload) => {
-        // console.log(payload);
         dispatch(setUser(payload.user));
       })
       .catch((error) => alert(error.message));
@@ -114,7 +113,6 @@ export function getArticlesAPI() {
       .orderBy("actor.date", "desc")
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
-        // console.log(payload);
         dispatch(getArticles(payload));
       });
   };

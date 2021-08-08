@@ -125,7 +125,6 @@ const Hero = styled.div`
   }
 
   img {
-    /* z-index: -1; */
     width: 700px;
     height: 670px;
     position: absolute;
@@ -181,5 +180,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-// export default Login;

@@ -28,17 +28,17 @@ const PostModal = (props) => {
     setAssetArea(area);
   };
 
-  const postArticle=(e) =>{
+  const postArticle = (e) => {
     e.preventDefault();
-    if(e.target !== e.currentTarget){
+    if (e.target !== e.currentTarget) {
       return;
     }
 
-    const payload ={
-      image:shareImage,
-      video:videoLink,
+    const payload = {
+      image: shareImage,
+      video: videoLink,
       user: props.user,
-      description:editorText,
+      description: editorText,
       timestamp: firebase.firestore.Timestamp.now(),
     };
     props.postArticle(payload);
@@ -66,7 +66,7 @@ const PostModal = (props) => {
             </Header>
             <SharedContent>
               <UserInfo>
-              {props.user.photoURL ? (
+                {props.user.photoURL ? (
                   <img src={props.user.photoURL} />
                 ) : (
                   <img src="/images/user.svg" alt="" />
@@ -130,7 +130,10 @@ const PostModal = (props) => {
                 </AssetButton>
               </ShareComment>
 
-              <PostButton disabled={!editorText ? true : false} onClick={(event) =>postArticle(event)}>
+              <PostButton
+                disabled={!editorText ? true : false}
+                onClick={(event) => postArticle(event)}
+              >
                 Post
               </PostButton>
             </ShareCreation>
@@ -276,11 +279,9 @@ const PostButton = styled.button`
   padding-left: 16px;
   padding-right: 16px;
   background: ${(props) => (props.disabled ? "rgba(0,0,0,0.08)" : "#0a66c2")};
-  /* color: white; */
   color: ${(props) => (props.disabled ? "rgba(1,1,1,0.2)" : "white")};
 
   &:hover {
-    /* background: #004182; */
     background: ${(props) => (props.disabled ? "rgba(0,0,0,0.08)" : "#004182")};
   }
 `;

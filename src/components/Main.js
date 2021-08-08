@@ -34,7 +34,6 @@ const Main = (props) => {
     }
   };
 
-
   return (
     <>
       {props.articles.length === 0 ? (
@@ -118,8 +117,11 @@ const Main = (props) => {
                   <SharedImg>
                     <a>
                       {article.video ? (
-                        <ReactPlayer width={"98%"} url={article.video} class="video"/>
-                      
+                        <ReactPlayer
+                          width={"98%"}
+                          url={article.video}
+                          class="video"
+                        />
                       ) : (
                         <img src={article.sharedImg} />
                       )}
@@ -329,10 +331,10 @@ const SharedImg = styled.div`
     width: 98%;
     height: 100%;
   }
-  .video{
+
+  .video {
     margin: 0 auto;
   }
-
 `;
 
 const SocialCounts = styled.ul`
@@ -349,7 +351,7 @@ const SocialCounts = styled.ul`
     margin-right: 5px;
     font-size: 12px;
     align-items: center;
-    
+
     button {
       display: flex;
       align-items: center;
@@ -357,10 +359,12 @@ const SocialCounts = styled.ul`
       background-color: transparent;
     }
 
-    img,svg{
+    img,
+    svg {
       padding-right: 2px;
     }
-    span{
+
+    span {
       padding-right: 10px;
     }
   }

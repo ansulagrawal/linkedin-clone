@@ -58,15 +58,15 @@ const Header = (props) => {
 
             <User>
               <a>
-                {props.user && props.user.photoURL ? (<img src={props.user.photoURL} alt="" />) :(
-
-                <img src="/images/user.svg" alt="" />)}
-                {/* <UserDetails> */}
-                  <span>
-                    Me
-                    <img src="/images/down-icon.svg" alt="" />
-                  </span>
-                {/* </UserDetails> */}
+                {props.user && props.user.photoURL ? (
+                  <img src={props.user.photoURL} alt="" />
+                ) : (
+                  <img src="/images/user.svg" alt="" />
+                )}
+                <span>
+                  Me
+                  <img src="/images/down-icon.svg" alt="" />
+                </span>
               </a>
 
               <SignOut onClick={() => props.SignOut()}>
@@ -261,10 +261,6 @@ const User = styled(NavList)`
   }
 `;
 
-const UserDetails = styled.div`
-  display: flex;
-`
-
 const Work = styled(User)`
   border-left: 1px solid rgba(0, 0, 0, 0.08);
 `;
@@ -275,10 +271,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) =>({
+const mapDispatchToProps = (dispatch) => ({
   SignOut: () => dispatch(signOutAPI()),
 });
-
-// export default Header;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

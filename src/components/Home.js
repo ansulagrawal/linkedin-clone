@@ -1,4 +1,4 @@
- import styled from "styled-components";
+import styled from "styled-components";
 import Leftside from "./Leftside";
 import Main from "./Main";
 import Rightside from "./Rightside";
@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 const Home = (props) => {
   return (
     <Container>
-      {!props.user && <Redirect to = "/" /> }
+      {!props.user && <Redirect to="/" />}
       <Section>
         <h5>
           <a>Hiring in a hurry? - </a>
@@ -86,8 +86,5 @@ const mapStateToProps = (state) => {
     user: state.userState.user,
   };
 };
-
-// export default Home;
-
 
 export default connect(mapStateToProps)(Home);
